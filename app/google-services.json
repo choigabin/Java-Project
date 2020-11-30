@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "231498862709",
+    "firebase_url": "https://javaproject-44484.firebaseio.com",
+    "project_id": "javaproject-44484",
+    "storage_bucket": "javaproject-44484.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:231498862709:android:18de2d7f3394b9512c283c",
+        "android_client_info": {
+          "package_name": "kr.hs.emirim.gaebi.java_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "231498862709-6v3giaede201nsla9teodhu6r8i6h054.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "kr.hs.emirim.gaebi.java_project",
+            "certificate_hash": "7e0e06783e9f312dc1aa0cc59c3a3062af0db7f4"
+          }
+        },
+        {
+          "client_id": "231498862709-hf4f2ekde5kahucj4q5al38rpd5o54bs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMGBR8TUiRd02hSIJ8QowYzNbMjVG9v5A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "231498862709-hf4f2ekde5kahucj4q5al38rpd5o54bs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

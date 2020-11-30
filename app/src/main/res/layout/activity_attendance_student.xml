@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#464646">
+    <!--  학생전용 출석확인  -->
+
+    <!--  이전 페이지로 넘어가는 버튼  -->
+    <ImageButton
+        android:id="@+id/backBtn"
+        android:layout_width="99dp"
+        android:layout_height="104dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="-2dp"
+        android:layout_marginBottom="629dp"
+        android:background="#464646"
+        android:src="@drawable/back" />
+
+
+    <!--  로고  -->
+    <ImageView
+        android:layout_width="278dp"
+        android:layout_height="193dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="168dp"
+        android:layout_marginLeft="168dp"
+        android:layout_marginEnd="-12dp"
+        android:layout_marginRight="-35dp"
+        android:layout_marginBottom="71dp"
+        android:src="@drawable/logo"
+        android:layout_alignParentRight="true" />
+
+    <!--  하단 툴바  -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="411dp"
+        android:layout_height="119dp"
+        android:layout_alignTop="@+id/docBtn"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="-7dp"
+        android:layout_marginBottom="1dp"
+        android:background="?attr/colorPrimary"
+        android:backgroundTint="#5b5a5c"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" />
+
+    <!--  캘린더 화면으로 넘어가는 버튼  -->
+    <ImageButton
+        android:id="@+id/calBtn"
+        android:layout_width="99dp"
+        android:layout_height="104dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/cal_f"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="33dp" />
+
+    <!--  출석을 확인하는 화면으로 넘어가는 버튼  -->
+    <ImageButton
+        android:id="@+id/docBtn"
+        android:layout_width="99dp"
+        android:layout_height="104dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="155dp"
+        android:layout_marginLeft="155dp"
+        android:layout_marginBottom="9dp"
+        android:src="@drawable/doc_f" />
+
+    <!--  내 정보 확인하는 버튼으로 넘어가는 버튼  -->
+    <ImageButton
+        android:id="@+id/inBtn"
+        android:layout_width="99dp"
+        android:layout_height="104dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="284dp"
+        android:layout_marginLeft="284dp"
+        android:layout_marginBottom="9dp"
+        android:src="@drawable/in_f" />
+
+</RelativeLayout>
