@@ -40,8 +40,21 @@ public class LoginActivity extends AppCompatActivity {
         join_email = findViewById(R.id.join_email);
         join_password = findViewById(R.id.join_password);
 
-        findViewById(R.id.joinBtn).setOnClickListener(onClickListener);
-        findViewById(R.id.loginBtn).setOnClickListener(onClickListener);
+        joinBtn = findViewById(R.id.joinBtn);
+        joinBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, JoinActivity.class);
+                startActivity(intent);
+            }
+        });
+        loginBtn = findViewById(R.id.loginBtn);
+        loginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                signIn();
+            }
+        });
 
     }
 
@@ -51,20 +64,6 @@ public class LoginActivity extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
     }
-
-    View.OnClickListener onClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            switch (view.getId()) {
-                case R.id.joinBtn:
-                    Intent intent = new Intent(LoginActivity.this, JoinActivity.class);
-                    startActivity(intent);
-                    break;
-                case R.id.loginBtn:
-                    signIn();
-            }
-        }
-    };
     private void signIn() {
         //xml에 선언한 login_email(EditText)의 텍스트를 String타입으로 변환하여 email 변수에 넣어줌
         String email = ((EditText)findViewById(R.id.join_email)).getText().toString();
@@ -79,12 +78,10 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Toast.makeText(LoginActivity.this, "로그인 성공!", Toast.LENGTH_SHORT).show();
                             FirebaseUser user = mAuth.getCurrentUser();
-                        } else {
-                            if(task.getException() != null) {
+                        } else if (task.getException() != null) {
                                 Toast.makeText(LoginActivity.this, "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(LoginActivity.this, JoinActivity.class);
                                 startActivity(intent);
-                            }
                         }
                     }
                 });

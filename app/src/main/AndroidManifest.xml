@@ -32,8 +32,6 @@
         <activity android:name=".Checkcompletion_studentActivity" />
         <activity android:name=".Calender_teacherActivity" />
         <activity android:name=".Calender_studentActivity" />
-        <activity android:name=".Attendance_teacherActivity" />
-        <activity android:name=".Attendance_studentActivity" />
         <activity android:name=".Addschedule_teacherActivity" />
         <activity android:name=".Addschedule_studentActivity" />
         <activity android:name=".Addclass_teacherActivity" />
