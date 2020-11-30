@@ -7,6 +7,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,7 +23,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button joinBtn;
     private Button loginBtn;
     private EditText join_email, join_password;
-    private FirebaseAuth firebaseAuth;
+    private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthListener;
 
     @Override
@@ -32,71 +33,61 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         //파이어베이스 계정 권한 생성
-        firebaseAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference bbf = database.getReference("bbf");
 
         join_email = findViewById(R.id.join_email);
         join_password = findViewById(R.id.join_password);
 
-        joinBtn = findViewById(R.id.joinBtn);
-        joinBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this,JoinActivity.class);
-                startActivity(intent);
-            }
-        });
+        findViewById(R.id.joinBtn).setOnClickListener(onClickListener);
+        findViewById(R.id.loginBtn).setOnClickListener(onClickListener);
 
-        loginBtn = findViewById(R.id.loginBtn);
-        loginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (join_email.getText().length() != 0 && join_password.getText().length() != 0){
-                    loginUser(join_email.getText().toString(), join_password.getText().toString());
-                }else{
-                    Toast.makeText(LoginActivity.this,"이메일과 비밀번호를 입력하세요.",Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-
-        firebaseAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if(user != null) {
-                    Intent intent = new Intent(LoginActivity.this, ChoiceActivity.class);
-                    startActivity(intent);
-                    finish();
-                } else {
-                }
-            }
-        };
     }
-    public void loginUser(String login_email, String login_password) {
-        firebaseAuth.signInWithEmailAndPassword(login_email, login_password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+    }
+
+    View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.joinBtn:
+                    Intent intent = new Intent(LoginActivity.this, JoinActivity.class);
+                    startActivity(intent);
+                    break;
+                case R.id.loginBtn:
+                    signIn();
+            }
+        }
+    };
+    private void signIn() {
+        //xml에 선언한 login_email(EditText)의 텍스트를 String타입으로 변환하여 email 변수에 넣어줌
+        String email = ((EditText)findViewById(R.id.join_email)).getText().toString();
+        //xml에 선언한 login_password(EditText)의 텍스트를 String타입으로 변환하여 password 변수에 넣어줌
+        String password = ((EditText)findViewById(R.id.join_password)).getText().toString();
+
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()) {
-                            Toast.makeText(LoginActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
-                            firebaseAuth.addAuthStateListener(firebaseAuthListener);
-                        }else {//로그인 실패
-                            Toast.makeText(LoginActivity.this, "이메일 또는 비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Toast.makeText(LoginActivity.this, "로그인 성공!", Toast.LENGTH_SHORT).show();
+                            FirebaseUser user = mAuth.getCurrentUser();
+                        } else {
+                            if(task.getException() != null) {
+                                Toast.makeText(LoginActivity.this, "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(LoginActivity.this, JoinActivity.class);
+                                startActivity(intent);
+                            }
                         }
                     }
                 });
     }
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (firebaseAuthListener != null){
-            firebaseAuth.removeAuthStateListener(firebaseAuthListener);
-        }
-    }
 }

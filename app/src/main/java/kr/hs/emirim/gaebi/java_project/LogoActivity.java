@@ -1,8 +1,6 @@
 package kr.hs.emirim.gaebi.java_project;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Window;
@@ -15,9 +13,10 @@ public class LogoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_logo);
-        startLoading();
+        logoLoading();
     }
-    public void startLoading() {
+
+    public void logoLoading() {
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override

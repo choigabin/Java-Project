@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -53,27 +52,34 @@ public class JoinActivity extends AppCompatActivity {
             switch (view.getId()) {
                 case R.id.jointBtn:
                     SignUp();
-                    Intent intent = new Intent(JoinActivity.this, LoginActivity.class);
-                    startActivity(intent);
                     break;
             }
         }
     };
 
     private void SignUp() {
+        //xml에 선언한 login_email(EditText)의 텍스트를 String타입으로 변환하여 email 변수에 넣어줌
         String email = ((EditText)findViewById(R.id.login_email)).getText().toString();
+        //xml에 선언한 login_password(EditText)의 텍스트를 String타입으로 변환하여 password 변수에 넣어줌
         String password = ((EditText)findViewById(R.id.login_password)).getText().toString();
 
+        //FirebaseAuth의 기능인 createUserWithEmailAndPassword을 사용해 회원가입 기능 구현
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+                        //회원가입 성공시, "회원가입이 완료되었습니다!" 알림
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
                             Toast.makeText(JoinActivity.this, "회원가입이 완료되었습니다!", Toast.LENGTH_SHORT).show();
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                            Intent intent = new Intent(JoinActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                        }
+                        //회원가입 실패시, "회원가입에 실패하였습니다." 알림
+                        else {
+                            if(task.getException() != null) {
+                                Toast.makeText(JoinActivity.this, "회원가입에 실패하였습니다", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     }
                 });
